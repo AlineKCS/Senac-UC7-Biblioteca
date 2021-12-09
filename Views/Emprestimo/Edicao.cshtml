@@ -1,6 +1,8 @@
 @model CadEmprestimoViewModel
 @{
     ViewData["Title"] = "Edição de Emprestimo";
+    LivroService livroService = new LivroService();
+        
 }
 
 <h1 class="row justify-content-md-center">Edição de Empréstimo</h1>
@@ -30,8 +32,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="Emprestimo.LivroId">Livro</label>
-                <select asp-for="Emprestimo.LivroId" class="form-control">
-                    @foreach(Livro l in Model.Livros)
+                <select asp-for="Emprestimo.LivroId" class="form-control" required>
+                   @foreach(Livro l in livroService.ListarTodos())
+                    {
+                        @if(l.Id == @Model.Emprestimo.LivroId)
+                        {
+                        <option value="@l.Id">@l.Titulo</option>
+                        }
+                    }                     
+
+                    @foreach(Livro l in livroService.ListarDisponiveis())
                     {
                         <option value="@l.Id">@l.Titulo</option>
                     }

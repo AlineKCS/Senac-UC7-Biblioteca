@@ -1,6 +1,7 @@
 @model CadEmprestimoViewModel
 @{
     ViewData["Title"] = "Cadastro de Emprestimos";
+    LivroService livroService = new LivroService();
 }
 
 <h1 class="row justify-content-md-center">Cadastro de Empréstimo</h1>
@@ -10,7 +11,7 @@
             <legend>Usuario</legend>
             <div class="form-group">
                 <label asp-for="Emprestimo.NomeUsuario">Nome</label>
-                <input asp-for="Emprestimo.NomeUsuario" class="form-control" required/>
+                <input asp-for="Emprestimo.NomeUsuario" class="form-control" required />
             </div>
             <div class="form-group">
                 <label asp-for="Emprestimo.Telefone">Telefone</label>
@@ -29,8 +30,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Emprestimo.LivroId">Livro</label>
-                <select asp-for="Emprestimo.LivroId" class="form-control" required>
-                    @foreach(Livro l in Model.Livros)
+                <select asp-for="Emprestimo.LivroId" class="form-control" required>                     
+                    @foreach(Livro l in livroService.ListarDisponiveis())
                     {
                         <option value="@l.Id">@l.Titulo</option>
                     }
