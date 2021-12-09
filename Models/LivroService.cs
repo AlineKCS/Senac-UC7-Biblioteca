@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 namespace Biblioteca.Models
 {
@@ -40,11 +41,11 @@ namespace Biblioteca.Models
                     switch (filtro.TipoFiltro)
                     {
                         case "Autor":
-                            query = bc.Livros.Where(l => l.Autor.Contains(filtro.Filtro));
+                            query = bc.Livros.Where(l => l.Autor.Contains(filtro.Filtro, StringComparison.OrdinalIgnoreCase));
                             break;
 
                         case "Titulo":
-                            query = bc.Livros.Where(l => l.Titulo.Contains(filtro.Filtro));
+                            query = bc.Livros.Where(l => l.Titulo.Contains(filtro.Filtro, StringComparison.OrdinalIgnoreCase));
                             break;
 
                         default:
@@ -75,8 +76,6 @@ namespace Biblioteca.Models
                     .ToList();
             }
         }
-    
-
         public Livro ObterPorId(int id)
         {
             using (BibliotecaContext bc = new BibliotecaContext())
